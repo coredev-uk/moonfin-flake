@@ -46,6 +46,10 @@ jobs:
           echo "changed=true" >> "$GITHUB_OUTPUT"
           echo "version=${version}" >> "$GITHUB_OUTPUT"
 
+      - name: Validate flake
+        if: steps.update.outputs.changed == 'true'
+        run: nix flake check
+
       - name: Commit and push update
         if: steps.update.outputs.changed == 'true'
         run: |

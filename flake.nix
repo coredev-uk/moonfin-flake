@@ -8,21 +8,48 @@
   outputs =
     { self, nixpkgs }:
     let
-      system = "x86_64-linux";
-      pkgs = import nixpkgs { inherit system; };
-      moonfin = pkgs.callPackage ./pkgs/moonfin.nix { };
+      systems = [
+        "x86_64-linux"
+        "aarch64-linux"
+      ];
+
+      forAllSystems = nixpkgs.lib.genAttrs systems;
+
+      pkgsFor = system: import nixpkgs { inherit system; };
+      moonfinFor = system: (pkgsFor system).callPackage ./pkgs/moonfin.nix { };
+
+      appFor = system:
+        let
+          moonfin = moonfinFor system;
+        in
+        {
+          type = "app";
+          program = "${moonfin}/bin/moonfin";
+          meta = {
+            description = "Jellyfin and Emby media client";
+          };
+        };
     in
     {
-      packages.${system} = {
-        inherit moonfin;
-        default = moonfin;
+      packages = forAllSystems (system: {
+        moonfin = moonfinFor system;
+        default = moonfinFor system;
+      });
+
+      apps = forAllSystems (system: {
+        moonfin = appFor system;
+        default = appFor system;
+      });
+
+      checks = forAllSystems (system: {
+        moonfin = moonfinFor system;
+        default = moonfinFor system;
+      });
+
+      overlays.default = final: prev: {
+        moonfin = final.callPackage ./pkgs/moonfin.nix { };
       };
 
-      apps.${system}.default = {
-        type = "app";
-        program = "${moonfin}/bin/moonfin";
-      };
-
-      formatter.${system} = pkgs.nixfmt;
+      formatter = forAllSystems (system: (pkgsFor system).nixfmt);
     };
 }
