@@ -13,13 +13,13 @@
 
 flutter341.buildFlutterApplication (finalAttrs: {
   pname = "moonfin";
-  version = "1.3.3";
+  version = "1.4.0";
 
   src = fetchFromGitHub {
     owner = "Moonfin-Client";
     repo = "Mobile-Desktop";
     tag = finalAttrs.version;
-    hash = "sha256-m+fsLhnNKoAtYzWXZ8kE/sFUWWGPyEu0Igmh0PJ5wg0=";
+    hash = "sha256-oFPzyaXrUccXjksvOVb8MAej1cP1rTv4VpwdGKRqHeI=";
   };
 
   autoPubspecLock = finalAttrs.src + "/pubspec.lock";
