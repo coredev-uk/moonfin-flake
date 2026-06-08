@@ -17,7 +17,7 @@ flutter341.buildFlutterApplication (finalAttrs: {
 
   src = fetchFromGitHub {
     owner = "Moonfin-Client";
-    repo = "Mobile-Desktop";
+    repo = "Moonfin-Core";
     tag = finalAttrs.version;
     hash = "sha256-oFPzyaXrUccXjksvOVb8MAej1cP1rTv4VpwdGKRqHeI=";
   };
