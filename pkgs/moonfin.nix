@@ -64,8 +64,8 @@ flutter341.buildFlutterApplication (finalAttrs: {
 
   meta = {
     description = "Jellyfin and Emby media client for Linux";
-    homepage = "https://github.com/Moonfin-Client/Mobile-Desktop";
-    changelog = "https://github.com/Moonfin-Client/Mobile-Desktop/releases/tag/${finalAttrs.version}";
+    homepage = "https://github.com/Moonfin-Client/Moonfin-Core";
+    changelog = "https://github.com/Moonfin-Client/Moonfin-Core/releases/tag/${finalAttrs.version}";
     license = lib.licenses.gpl2Only;
     mainProgram = "moonfin";
     platforms = lib.platforms.linux;
