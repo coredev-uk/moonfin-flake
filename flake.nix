@@ -18,7 +18,8 @@
       pkgsFor = system: import nixpkgs { inherit system; };
       moonfinFor = system: (pkgsFor system).callPackage ./pkgs/moonfin.nix { };
 
-      appFor = system:
+      appFor =
+        system:
         let
           moonfin = moonfinFor system;
         in
